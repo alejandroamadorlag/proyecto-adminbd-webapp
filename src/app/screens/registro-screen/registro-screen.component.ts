@@ -73,37 +73,37 @@ export class RegistroScreenComponent implements OnInit{
 
   public registrar(){
      //Validar
-     this.errors = [];
+    this.errors = [];
 
-     this.errors = this.bibliotecariosService.validarAdmin(this.bibliotecario, this.editar);
-     if(!$.isEmptyObject(this.errors)){
-       return false;
-     }
+    this.errors = this.bibliotecariosService.validarAdmin(this.bibliotecario, this.editar);
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
 
-     //Validar la contraseña
-     if(this.bibliotecario.password == this.bibliotecario.confirmar_password){
-       //Entra a registrar
-       this.bibliotecariosService.registrarBibliotecario(this.bibliotecario).subscribe(
-         (response)=>{
-           //Aquí va la ejecución del servicio si todo es correcto
-           alert("Usuario registrado correctamente");
-           console.log("Usuario registrado: ", response);
-           if(this.token != ""){
-             this.router.navigate(["home"]);
-           }else{
-             this.router.navigate(["/"]);
-           }
-         }, (error)=>{
-           //Aquí se ejecuta el error
-           alert("No se pudo registrar usuario");
-         }
-       );
-     }else{
-       alert("Las contraseñas no coinciden");
-       this.bibliotecario.password="";
-       this.bibliotecario.confirmar_password="";
-     }
-   }
+    //Validar la contraseña
+    if(this.bibliotecario.password == this.bibliotecario.confirmar_password){
+      //Entra a registrar
+      this.bibliotecariosService.registrarBibliotecario(this.bibliotecario).subscribe(
+        (response)=>{
+          //Aquí va la ejecución del servicio si todo es correcto
+          alert("Usuario registrado correctamente");
+          console.log("Usuario registrado: ", response);
+          if(this.token != ""){
+            this.router.navigate(["home"]);
+          }else{
+            this.router.navigate(["/"]);
+          }
+        }, (error)=>{
+          //Aquí se ejecuta el error
+          alert("No se pudo registrar usuario");
+        }
+      );
+    }else{
+      alert("Las contraseñas no coinciden");
+      this.bibliotecario.password="";
+      this.bibliotecario.confirmar_password="";
+    }
+  }
 
   public actualizar(){
 
