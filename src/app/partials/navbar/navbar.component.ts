@@ -35,8 +35,22 @@ export class NavbarComponent implements OnInit{
   }
 
   public goRegistro(){
-    this.router.navigate(["registro-usuarios"]);
+    this.router.navigate(["registro"]);
   }
+
+  public goRegistroAutor(){
+    this.router.navigate(["registro-autor"]);
+  }
+
+  public goRegistroGenero(){
+    this.router.navigate(["registro-genero"]);
+  }
+
+  public goRegistroLibro(){
+    this.router.navigate(["registro-libro"]);
+  }
+
+
   //Cerrar sesión
   public logout(){
     this.facadeService.logout().subscribe(
@@ -59,23 +73,48 @@ export class NavbarComponent implements OnInit{
     }, 100);
   }
   public activarLink(link: string){
-    if(link == "alumnos"){
-      $("#principal").removeClass("active");
-      $("#maestro").removeClass("active");
-      $("#alumno").addClass("active");
-    }else if(link == "maestros"){
-      $("#principal").removeClass("active");
-      $("#alumno").removeClass("active");
-      $("#maestro").addClass("active");
-    }else if(link == "home"){
-      $("#alumno").removeClass("active");
-      $("#maestro").removeClass("active");
+    if(link == "home"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
+      $("#genero").removeClass("active");
       $("#principal").addClass("active");
-    }else if(link == "graficas"){
-      $("#alumno").removeClass("active");
-      $("#maestro").removeClass("active");
+    }else if(link == "autores"){
+      $("#autor").addClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
       $("#principal").removeClass("active");
-      $("#graficas").addClass("active");
+      $("#genero").removeClass("active");
+    }else if(link == "libros"){
+      $("#autor").removeClass("active");
+      $("#libro").addClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").removeClass("active");
+    }else if(link == "cliente"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").addClass("active");
+      $("#prestamo").removeClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").removeClass("active");
+    }else if(link == "prestamos"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").addClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").removeClass("active");
+    }else if(link == "generos"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").addClass("active");
     }
   }
 }

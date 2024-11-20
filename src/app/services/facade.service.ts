@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
-import { ValidatorService } from './tools/validator.service';
-import { ErrorsService } from './tools/errors.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ErrorsService } from './tools/errors.service';
+import { ValidatorService } from './tools/validator.service';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const session_cookie_name = 'systemp-web-token';
-const user_email_cookie_name = 'systemp-web-email';
-const user_id_cookie_name = 'systemp-web-user_id';
-const user_complete_name_cookie_name = 'systemp-web-user_complete_name';
-const group_name_cookie_name = 'systemp-group_name';
-const codigo_cookie_name = 'systemp-web-codigo';
+const session_cookie_name = 'proyecto-tecnologias-token';
+const user_email_cookie_name = 'proyecto-tecnologias-email';
+const user_id_cookie_name = 'proyecto-tecnologias-user_id';
+const user_complete_name_cookie_name = 'proyecto-tecnologias-user_complete_name';
+const group_name_cookie_name = 'proyecto-tecnologias-group_name';
+const codigo_cookie_name = 'proyecto-tecnologias-codigo';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +34,9 @@ export class FacadeService {
   ) { }
 
   //Funcion para validar login
-  public validarLogin(nombreusuario: String, password: String){
+  public validarLogin(username: String, password: String){
     var data = {
-      "username": nombreusuario,
+      "username": username,
       "password": password
     }
     console.log("Validando login... ", data);
@@ -44,6 +46,8 @@ export class FacadeService {
       error["username"] = this.errorService.required;
     }else if(!this.validatorService.max(data["username"], 40)){
       error["username"] = this.errorService.max(40);
+    }else if (!this.validatorService.email(data['username'])) {
+      error['username'] = this.errorService.email;
     }
 
     if(!this.validatorService.required(data["password"])){
@@ -55,21 +59,22 @@ export class FacadeService {
 
   // Funciones básicas
   //Iniciar sesión
-  login(username:String, password:String): Observable<any> {
+  public login(username:String, password:String): Observable<any> {
     var data={
       username: username,
       password: password
     }
-    return this.http.post<any>(`${environment.url_api}/token/`,data);
+    return this.http.post<any>(`${environment.url_api}/token/`,data, httpOptions);
   }
 
   //Cerrar sesión
-  logout(): Observable<any> {
+  public logout(): Observable<any> {
     var headers: any;
     var token = this.getSessionToken();
     headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/logout/`, {headers: headers});
   }
+
 
   //Funciones para utilizar las cookies en web
   retrieveSignedUser(){
@@ -92,13 +97,20 @@ export class FacadeService {
     return this.cookieService.get(session_cookie_name);
   }
 
+
   saveUserData(user_data:any){
     var secure = environment.url_api.indexOf("https")!=-1;
-    this.cookieService.set(user_id_cookie_name, user_data.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
-    this.cookieService.set(user_email_cookie_name, user_data.email, undefined, undefined, undefined, secure, secure?"None":"Lax");
+    if(user_data.rol == "bibliotecario"){
+      this.cookieService.set(user_id_cookie_name, user_data.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
+      this.cookieService.set(user_email_cookie_name, user_data.email, undefined, undefined, undefined, secure, secure?"None":"Lax");
+      this.cookieService.set(user_complete_name_cookie_name, user_data.first_name + " " + user_data.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
+    }else{
+      this.cookieService.set(user_id_cookie_name, user_data.user.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
+      this.cookieService.set(user_email_cookie_name, user_data.user.email, undefined, undefined, undefined, secure, secure?"None":"Lax");
+      this.cookieService.set(user_complete_name_cookie_name, user_data.user.first_name + " " + user_data.user.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
+    }
     this.cookieService.set(session_cookie_name, user_data.token, undefined, undefined, undefined, secure, secure?"None":"Lax");
-    this.cookieService.set(user_complete_name_cookie_name, user_data.first_name + " " + user_data.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
-    this.cookieService.set(group_name_cookie_name, user_data.roles, undefined, undefined, undefined, secure, secure?"None":"Lax");
+    this.cookieService.set(group_name_cookie_name, user_data.rol, undefined, undefined, undefined, secure, secure?"None":"Lax");
   }
 
   destroyUser(){
@@ -122,4 +134,3 @@ export class FacadeService {
   }
 
 }
-

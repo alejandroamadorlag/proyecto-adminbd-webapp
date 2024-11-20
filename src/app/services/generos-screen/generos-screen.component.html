@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div class="header-home-admin">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="body-alumnos">
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <span class="title-perfil">Bienvenido {{name_user}}</span>
+        <br><br>
+        <span class="title-perfil">{{rol}}</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-3 mb-5" style="text-align: center;">
+        <div class="col-12">
+          <div class="alert alert-primary" role="alert">
+            <span class="title-table" *ngIf="rol!='cliente'">Lista de Generos registrados</span>
+          </div>
+        </div>
+      </div>
+      <!-- Tabla de angular material -->
+      <div class="mat-elevation-z8" *ngIf="rol!='cliente'">
+        <table mat-table [dataSource]="dataSource">
+            <!-- 1era fila -->
+            <ng-container matColumnDef="id_genero">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id_genero}} </td>
+            </ng-container>
+
+            <!-- 2da fila -->
+            <ng-container matColumnDef="nombre_genero">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre_genero}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editar">
+                <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+                <td mat-cell *matCellDef="let element" class="td-editar">
+                    <i class="bi bi-pencil-square" (click)="goEditar(element.id)"></i>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let element" class="td-eliminar">
+                    <i class="bi bi-trash3-fill" (click)="delete(element.id)"></i>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                       showFirstLastButtons
+                       aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

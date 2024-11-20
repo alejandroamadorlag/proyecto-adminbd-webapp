@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="header-home-admin">
+    <app-navbar></app-navbar>
+
+  <div class="section-registro">
+    <div class="row mt-3 mb-3">
+      <div class="form-group col-12">
+        <label class="title-user" for="tipo_usuario">Ingresa los datos del Libro</label>
+      </div>
+    </div>
+              <div class="body-registro">
+                <div class="container">
+
+                  <mat-form-field class="mat-input" appearance="outline">
+                      <mat-label>ID</mat-label>
+                      <input matInput [(ngModel)]="libro.id_libro" name="id" mask='0000' placeholder="Escribe ID">
+                  </mat-form-field>
+                  <div *ngIf="errors.id_libro" class="invalid-feedback">{{ errors.id_libro }}</div>
+
+                  <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Título</mat-label>
+                    <input matInput [(ngModel)]="libro.titulo" placeholder="Escribe título" (keypress)="soloLetras($event)">
+                  </mat-form-field>
+                  <div *ngIf="errors.titulo" class="invalid-feedback">{{ errors.titulo }}</div>
+
+                  <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Autor</mat-label>
+                    <mat-select [(ngModel)]="libro.id_autor" placeholder="Selecciona el ID y Autor">
+                        <mat-option *ngFor="let citaItem of dataSource" [value]="citaItem.id_autor && citaItem.first_name && citaItem.last_name">{{ citaItem.id_autor }} {{ citaItem.first_name }} {{ citaItem.last_name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="errors.id_autor" class="invalid-feedback">{{ errors.id_autor }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                  <mat-label>Género</mat-label>
+                  <mat-select [(ngModel)]="libro.id_genero" placeholder="Selecciona el ID y Género">
+                      <mat-option *ngFor="let citaItem2 of dataSource2" [value]="citaItem2.id_genero && citaItem2.nombre_genero">{{ citaItem2.id_genero }} {{ citaItem2.nombre_genero }}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div *ngIf="errors.id_genero" class="invalid-feedback">{{ errors.id_genero }}</div>
+
+
+
+              <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Fecha de registro</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="libro.fecha_registro" (focus)="picker.open()" placeholder="Agrega la fecha en la que se está registrando" (dateChange)="changeFecha($event)" type="string">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errors.fecha_registro" class="invalid-feedback">{{ errors.fecha_registro }}</div>
+
+                  <div class="section-buttons">
+                      <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+                      <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                      <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>

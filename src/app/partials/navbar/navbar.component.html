@@ -7,36 +7,42 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <ng-container *ngIf="tipo!='registro-usuarios'; else registraUsers">
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="rol!='cliente'">
               <a class="nav-link active" id="principal" aria-current="page" (click)="clickNavLink('home')">Inicio</a>
             </li>
-            <li class="nav-item" *ngIf="rol!='alumno'">
-              <a class="nav-link" id="alumno" aria-current="page" (click)="clickNavLink('alumnos')">Alumnos</a>
-            </li>
-            <li class="nav-item" *ngIf="rol!='maestro' && rol!='alumno'">
-              <a class="nav-link" id="maestro" (click)="clickNavLink('maestros')">Maestros</a>
+            <li class="nav-item" *ngIf="rol!='cliente'">
+              <a class="nav-link" id="autor" aria-current="page" (click)="clickNavLink('autores')">Autores</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Lista de materias</a>
+              <a class="nav-link" id="libro" aria-current="page" (click)="clickNavLink('libros')">Libros</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" id="graficas" (click)="clickNavLink('graficas')">Gráficas</a>
+            <li class="nav-item" *ngIf="rol!='cliente'">
+              <a class="nav-link" id="cliente" aria-current="page" (click)="clickNavLink('cliente')">Clientes</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item" *ngIf="rol!='cliente'">
+              <a class="nav-link" id="prestamo" aria-current="page" (click)="clickNavLink('prestamos')">Préstamos</a>
+            </li>
+            <li class="nav-item" *ngIf="rol!='cliente'">
+              <a class="nav-link" id="genero" aria-current="page" (click)="clickNavLink('generos')">Géneros</a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="rol!='cliente'">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Registrar
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" (click)="goRegistro()" *ngIf="rol!='alumno'">Alumnos</a></li>
-                <li><a class="dropdown-item" (click)="goRegistro()" *ngIf="rol!='maestro' && rol!='alumno'">Maestros</a></li>
+                <li><a class="dropdown-item" (click)="goRegistro()">Usuarios</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Materias</a></li>
+                <li><a class="dropdown-item" (click)="goRegistroAutor()">Autores</a></li>
+                <li><a class="dropdown-item" (click)="goRegistroLibro()">Libros</a></li>
+                <li><a class="dropdown-item" (click)="goRegistroGenero()">Géneros</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Préstamos</a></li>
               </ul>
             </li>
           </ng-container>
           <ng-template #registraUsers>
-            <label class="navbar-brand" *ngIf="!editar">Registro de bibliotecarios</label>
-            <label class="navbar-brand" *ngIf="editar">Editar bibliotecarios</label>
+            <label class="navbar-brand" *ngIf="!editar">Registro de usuarios</label>
+            <label class="navbar-brand" *ngIf="editar">Editar usuarios</label>
           </ng-template>
         </ul>
         <form class="d-flex">

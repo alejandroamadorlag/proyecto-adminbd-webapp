@@ -30,6 +30,17 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { NavbarComponent } from './partials/navbar/navbar.component';
+import { RegistroBiblioComponent } from './partials/registro-biblio/registro-biblio.component';
+import { RegistroClienteComponent } from './partials/registro-cliente/registro-cliente.component';
+import { BibliotecarioScreenComponent } from './services/bibliotecario-screen/bibliotecario-screen.component';
+import { ClienteScreenComponent } from './services/cliente-screen/cliente-screen.component';
+import { AutoresScreenComponent } from './services/autores-screen/autores-screen.component';
+import { LibrosScreenComponent } from './services/libros-screen/libros-screen.component';
+import { PrestamosScreenComponent } from './services/prestamos-screen/prestamos-screen.component';
+import { RegistroAutorComponent } from './partials/registro-autor/registro-autor.component';
+import { GenerosScreenComponent } from './services/generos-screen/generos-screen.component';
+import { RegistroGeneroComponent } from './partials/registro-genero/registro-genero.component';
+import { RegistroLibroComponent } from './partials/registro-libro/registro-libro.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +49,17 @@ import { NavbarComponent } from './partials/navbar/navbar.component';
     NavbarComponent,
     RegistroScreenComponent,
     HomeScreenComponent,
+    RegistroBiblioComponent,
+    RegistroClienteComponent,
+    BibliotecarioScreenComponent,
+    ClienteScreenComponent,
+    AutoresScreenComponent,
+    LibrosScreenComponent,
+    PrestamosScreenComponent,
+    RegistroAutorComponent,
+    GenerosScreenComponent,
+    RegistroGeneroComponent,
+    RegistroLibroComponent,
   ],
   imports: [
     BrowserModule,

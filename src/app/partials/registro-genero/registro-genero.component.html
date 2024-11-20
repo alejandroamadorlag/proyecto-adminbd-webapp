@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <div class="header-home-admin">
+    <app-navbar></app-navbar>
+
+  <div class="section-registro">
+    <div class="row mt-3 mb-3">
+      <div class="form-group col-12">
+        <label class="title-user" for="tipo_usuario">Ingresa los datos del Género</label>
+      </div>
+    </div>
+              <div class="body-registro">
+                <div class="container">
+
+                  <mat-form-field class="mat-input" appearance="outline">
+                      <mat-label>ID</mat-label>
+                      <input matInput [(ngModel)]="genero.id_genero" name="id" mask='0000' placeholder="Escribe ID">
+                  </mat-form-field>
+                  <div *ngIf="errors.id_genero" class="invalid-feedback">{{ errors.id_genero }}</div>
+
+                  <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput [(ngModel)]="genero.nombre_genero" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
+                  </mat-form-field>
+                  <div *ngIf="errors.nombre_genero" class="invalid-feedback">{{ errors.nombre_genero }}</div>
+
+                  <div class="section-buttons">
+                      <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+                      <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                      <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>

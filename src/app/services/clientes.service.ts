@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class BibliotecariosService {
+export class ClientesService {
 
   constructor(
     private http: HttpClient,
@@ -22,29 +22,28 @@ export class BibliotecariosService {
     private facadeService: FacadeService
   ) { }
 
-  public esquemaBibliotecario(){
+  public esquemaCliente(){
     return {
       'rol': '',
-      'id_bibliotecario': '',
+      'id_cliente': '',
       'first_name': '',
       'last_name': '',
       'email': '',
       'password': '',
       'confirmar_password': '',
       'telefono': '',
-      'rfc': '',
       'direccion': ''
     }
   }
 
   //Validación para el formulario
-  public validarAdmin(data: any, editar: boolean){
+  public validarCliente(data: any, editar: boolean){
     console.log("Validando admin... ", data);
 
     let error: any = [];
 
-    if(!this.validatorService.required(data["id_bibliotecario"])){
-      error["id_bibliotecario"] = this.errorService.required;
+    if(!this.validatorService.required(data["id_cliente"])){
+      error["id_cliente"] = this.errorService.required;
     }
 
     if(!this.validatorService.required(data["first_name"])){
@@ -73,16 +72,6 @@ export class BibliotecariosService {
       }
     }
 
-    if(!this.validatorService.required(data["rfc"])){
-      error["rfc"] = this.errorService.required;
-    }else if(!this.validatorService.min(data["rfc"], 12)){
-      error["rfc"] = this.errorService.min(12);
-      alert("La longitud de caracteres deL RFC es menor, deben ser 13");
-    }else if(!this.validatorService.max(data["rfc"], 13)){
-      error["rfc"] = this.errorService.max(13);
-      alert("La longitud de caracteres deL RFC es mayor, deben ser 13");
-    }
-
     if(!this.validatorService.required(data["telefono"])){
       error["telefono"] = this.errorService.required;
     }
@@ -97,13 +86,17 @@ export class BibliotecariosService {
 
   //Aquí van los servicios HTTP
   //Servicio para registrar un nuevo usuario
-  public registrarBibliotecario (data: any): Observable <any>{
-    return this.http.post<any>(`${environment.url_api}/bibliotecarios/`,data, httpOptions);
+  public registrarCliente (data: any): Observable <any>{
+    return this.http.post<any>(`${environment.url_api}/clientes/`,data, httpOptions);
   }
 
-  public obtenerListaBibliotecarios (): Observable <any>{
+  public obtenerListaClientes (): Observable <any>{
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-    return this.http.get<any>(`${environment.url_api}/lista-bibliotecarios/`, {headers:headers});
+    return this.http.get<any>(`${environment.url_api}/lista-clientes/`, {headers:headers});
   }
+
+
+
+
 }

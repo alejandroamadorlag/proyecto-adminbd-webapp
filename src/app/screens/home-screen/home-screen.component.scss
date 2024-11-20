@@ -1,69 +1,29 @@
-.home-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-    font-family: Arial, sans-serif;
-
-    .header {
-        font-size: 2rem;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .content {
-        font-size: 1rem;
-        color: #666;
-        text-align: center;
-        max-width: 600px;
-    }
-
-    .button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-            background-color: #007984;
-        }
-    }
+.wrapper{
+  width: 100vw;
+  height: 100vh;
 }
 
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #007686;
-    color: #fff;
-    font-size: 1.2rem;
+.section-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 }
 
-.nav-link{
-    color: #fff;
-    text-decoration: none;
-    padding: 10px;
-    transition: background-color 0.3s;
-
-    &:hover{
-        background-color: #00707a;
-    }
+.header-home{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
-.navbar-brand{
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-.dropdown{
-    position: relative;
-    display: inline-block;
+.body-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 90vh;
 }
