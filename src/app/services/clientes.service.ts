@@ -25,7 +25,6 @@ export class ClientesService {
   public esquemaCliente(){
     return {
       'rol': '',
-      'id_cliente': '',
       'first_name': '',
       'last_name': '',
       'email': '',
@@ -41,10 +40,6 @@ export class ClientesService {
     console.log("Validando admin... ", data);
 
     let error: any = [];
-
-    if(!this.validatorService.required(data["id_cliente"])){
-      error["id_cliente"] = this.errorService.required;
-    }
 
     if(!this.validatorService.required(data["first_name"])){
       error["first_name"] = this.errorService.required;
@@ -96,7 +91,15 @@ export class ClientesService {
     return this.http.get<any>(`${environment.url_api}/lista-clientes/`, {headers:headers});
   }
 
+  public obtenerListaClientesMasActivos (): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-clientesmas/`, {headers:headers});
+  }
 
+  public eliminarCliente (idCliente: any): Observable <any>{
+    return this.http.put<any>(`${environment.url_api}/delete-cliente/?id=${idCliente}`, httpOptions);
+  }
 
 
 }

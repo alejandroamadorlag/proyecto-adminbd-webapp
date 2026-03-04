@@ -130,9 +130,12 @@ export class RegistroLibroComponent implements OnInit{
     console.log(event);
     console.log(event.value.toISOString());
 
-    this.libro.fecha_nacimiento = event.value.toISOString().split("T")[0];
-    console.log("Fecha: ", this.libro.fecha_nacimiento);
+    this.libro.fecha_registro = event.value.toISOString().split("T")[0];
+    console.log("Fecha: ", this.libro.fecha_registro);
   }
+
+
+
 
   //Obtener lista de contactos empresariales
  public obtenerListaAutores(){
@@ -168,13 +171,11 @@ public obtenerListaGeneros(){
 
 export interface DatosAutores {
   id: number,
-  id_autor: string;
   first_name: string;
   last_name: string;
 }
 
 export interface DatosGeneros {
   id: number,
-  id_genero: string;
   nombre_genero: string;
 }

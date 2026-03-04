@@ -18,12 +18,6 @@
                 <div *ngIf="errors.rol" class="invalid-feedback">{{ errors.rol }}</div>
 
                   <mat-form-field class="mat-input" appearance="outline">
-                      <mat-label>ID</mat-label>
-                      <input matInput [(ngModel)]="cliente.id_cliente" name="id" mask='000000000' placeholder="Escribe ID">
-                  </mat-form-field>
-                  <div *ngIf="errors.id_cliente" class="invalid-feedback">{{ errors.id_cliente }}</div>
-
-                  <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Nombre</mat-label>
                     <input matInput [(ngModel)]="cliente.first_name" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
                   </mat-form-field>

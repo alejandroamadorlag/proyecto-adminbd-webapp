@@ -14,6 +14,7 @@ const httpOptions = {
 const session_cookie_name = 'proyecto-tecnologias-token';
 const user_email_cookie_name = 'proyecto-tecnologias-email';
 const user_id_cookie_name = 'proyecto-tecnologias-user_id';
+const cliente_id_cookie_name = 'proyecto_adminbd_api_clientes-id';
 const user_complete_name_cookie_name = 'proyecto-tecnologias-user_complete_name';
 const group_name_cookie_name = 'proyecto-tecnologias-group_name';
 const codigo_cookie_name = 'proyecto-tecnologias-codigo';
@@ -104,9 +105,10 @@ export class FacadeService {
       this.cookieService.set(user_id_cookie_name, user_data.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
       this.cookieService.set(user_email_cookie_name, user_data.email, undefined, undefined, undefined, secure, secure?"None":"Lax");
       this.cookieService.set(user_complete_name_cookie_name, user_data.first_name + " " + user_data.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
-    }else{
+    }else {
       this.cookieService.set(user_id_cookie_name, user_data.user.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
       this.cookieService.set(user_email_cookie_name, user_data.user.email, undefined, undefined, undefined, secure, secure?"None":"Lax");
+      this.cookieService.set(cliente_id_cookie_name, user_data.id, undefined, undefined, undefined, secure, secure?"None":"Lax");
       this.cookieService.set(user_complete_name_cookie_name, user_data.user.first_name + " " + user_data.user.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
     }
     this.cookieService.set(session_cookie_name, user_data.token, undefined, undefined, undefined, secure, secure?"None":"Lax");
@@ -127,6 +129,10 @@ export class FacadeService {
 
   getUserId(){
     return this.cookieService.get(user_id_cookie_name);
+  }
+
+  getClienteId(){
+    return this.cookieService.get(cliente_id_cookie_name);
   }
 
   getUserGroup(){

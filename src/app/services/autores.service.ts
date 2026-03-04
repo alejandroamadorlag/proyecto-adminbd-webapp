@@ -24,7 +24,6 @@ export class AutoresService {
 
   public esquemaAutor(){
     return {
-      'id_autor': '',
       'first_name': '',
       'last_name': '',
       'nacionalidad': '',
@@ -37,9 +36,6 @@ export class AutoresService {
 
     let error: any = [];
 
-    if(!this.validatorService.required(data["id_autor"])){
-      error["id_autor"] = this.errorService.required;
-    }
 
     if(!this.validatorService.required(data["first_name"])){
       error["first_name"] = this.errorService.required;
@@ -68,6 +64,10 @@ export class AutoresService {
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-autores/`, {headers:headers});
+  }
+
+  public eliminarAutor (idAutor: any): Observable <any>{
+    return this.http.put<any>(`${environment.url_api}/delete-autor/?id=${idAutor}`, httpOptions);
   }
 
 

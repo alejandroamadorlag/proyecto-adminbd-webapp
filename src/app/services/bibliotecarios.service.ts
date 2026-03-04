@@ -25,7 +25,6 @@ export class BibliotecariosService {
   public esquemaBibliotecario(){
     return {
       'rol': '',
-      'id_bibliotecario': '',
       'first_name': '',
       'last_name': '',
       'email': '',
@@ -43,9 +42,6 @@ export class BibliotecariosService {
 
     let error: any = [];
 
-    if(!this.validatorService.required(data["id_bibliotecario"])){
-      error["id_bibliotecario"] = this.errorService.required;
-    }
 
     if(!this.validatorService.required(data["first_name"])){
       error["first_name"] = this.errorService.required;
@@ -105,5 +101,15 @@ export class BibliotecariosService {
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-bibliotecarios/`, {headers:headers});
+  }
+
+  public obtenerListaUsers (): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-users/`, {headers:headers});
+  }
+
+  public eliminarBiblio (idBiblio: any): Observable <any>{
+    return this.http.put<any>(`${environment.url_api}/delete-user/?id=${idBiblio}`, httpOptions);
   }
 }

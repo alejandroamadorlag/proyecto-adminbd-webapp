@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { FacadeService } from 'src/app/services/facade.service';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { EliminarClienteModalComponent } from 'src/app/modals/eliminar-cliente-modal/eliminar-cliente-modal.component';
 
 @Component({
   selector: 'app-cliente-screen',
@@ -18,7 +20,7 @@ export class ClienteScreenComponent implements OnInit {
   public lista_clientes: any[] = [];
 
   //Para la tabla
-  displayedColumns: string[] = ['id_bibliotecario', 'nombre', 'email', 'telefono', 'direccion', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'direccion', 'editar'];
   dataSource = new MatTableDataSource<DatosCliente>(this.lista_clientes as DatosCliente[]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,6 +32,7 @@ export class ClienteScreenComponent implements OnInit {
   constructor(
     public facadeService: FacadeService,
     public clientesService: ClientesService,
+    public dialog: MatDialog,
     private router: Router
   ){}
 
@@ -100,15 +103,31 @@ export class ClienteScreenComponent implements OnInit {
     this.router.navigate(["registro/cliente/"+idUser]);
   }
 
-  public delete(userId: number){
-
-  }
+  public delete(idCliente: number){
+    //console.log("User:", idUser);
+    const dialogRef = this.dialog.open(EliminarClienteModalComponent,{
+     data: {id: idCliente}, //Se pasan valores a través del componente
+     height: '288px',
+     width: '328px',
+   });
+   //Esta se ejecuta después de un evento que cierra el modal
+   dialogRef.afterClosed().subscribe(result => {
+     if(result.isDelete){
+       console.log("Cliente eliminado");
+       //Recargar página
+       alert("Cliente eliminado correctamente");
+       window.location.reload();
+     }else{
+       alert("Cliente no eliminado ");
+       console.log("No se eliminó el cliente");
+     }
+   });
+   }
 }//Fin de la clase
 
 //Esto va fuera de la llave que cierra la clase
 export interface DatosCliente {
   id: number,
-  id_cliente: string;
   first_name: string;
   last_name: string;
   email: string;

@@ -20,6 +20,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
 //Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 //Cambia el idioma a español
@@ -41,6 +42,19 @@ import { RegistroAutorComponent } from './partials/registro-autor/registro-autor
 import { GenerosScreenComponent } from './services/generos-screen/generos-screen.component';
 import { RegistroGeneroComponent } from './partials/registro-genero/registro-genero.component';
 import { RegistroLibroComponent } from './partials/registro-libro/registro-libro.component';
+import { RegistroPrestamoComponent } from './partials/registro-prestamo/registro-prestamo.component';
+import { HistorialScreenComponent } from './services/historial-screen/historial-screen.component';
+import { LibrosnodisponiblesScreenComponent } from './services/librosnodisponibles-screen/librosnodisponibles-screen.component';
+import { HistorialClienteScreenComponent } from './services/historial-cliente-screen/historial-cliente-screen.component';
+import { LibrospoScreenComponent } from './services/librospo-screen/librospo-screen.component';
+import { ClientesactScreenComponent } from './services/clientesact-screen/clientesact-screen.component';
+import { EliminarGeneroModalComponent } from './modals/eliminar-genero-modal/eliminar-genero-modal.component';
+import { EliminarBiblioModalComponent } from './modals/eliminar-biblio-modal/eliminar-biblio-modal.component';
+import { EliminarClienteModalComponent } from './modals/eliminar-cliente-modal/eliminar-cliente-modal.component';
+import { UsuariosScreenComponent } from './services/usuarios-screen/usuarios-screen.component';
+import { EliminarAutorModalComponent } from './modals/eliminar-autor-modal/eliminar-autor-modal.component';
+import { EliminarLibroModalComponent } from './modals/eliminar-libro-modal/eliminar-libro-modal.component';
+import { EliminarPrestamoModalComponent } from './modals/eliminar-prestamo-modal/eliminar-prestamo-modal.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +74,19 @@ import { RegistroLibroComponent } from './partials/registro-libro/registro-libro
     GenerosScreenComponent,
     RegistroGeneroComponent,
     RegistroLibroComponent,
+    RegistroPrestamoComponent,
+    HistorialScreenComponent,
+    LibrosnodisponiblesScreenComponent,
+    HistorialClienteScreenComponent,
+    LibrospoScreenComponent,
+    ClientesactScreenComponent,
+    EliminarGeneroModalComponent,
+    EliminarBiblioModalComponent,
+    EliminarClienteModalComponent,
+    UsuariosScreenComponent,
+    EliminarAutorModalComponent,
+    EliminarLibroModalComponent,
+    EliminarPrestamoModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +104,7 @@ import { RegistroLibroComponent } from './partials/registro-libro/registro-libro
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMaskDirective,
+    MatDialogModule,
     MatTableModule,
     MatPaginatorModule
   ],

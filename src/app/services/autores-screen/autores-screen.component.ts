@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { FacadeService } from 'src/app/services/facade.service';
 import { AutoresService } from 'src/app/services/autores.service';
+import { EliminarAutorModalComponent } from 'src/app/modals/eliminar-autor-modal/eliminar-autor-modal.component';
 
 @Component({
   selector: 'app-autores-screen',
@@ -18,7 +20,7 @@ export class AutoresScreenComponent implements OnInit {
   public lista_autores: any[] = [];
 
   //Para la tabla
-  displayedColumns: string[] = ['id_bibliotecario', 'nombre', 'nacionalidad', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'nombre', 'nacionalidad', 'editar', 'eliminar'];
   dataSource = new MatTableDataSource<DatosAutor>(this.lista_autores as DatosAutor[]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,6 +32,7 @@ export class AutoresScreenComponent implements OnInit {
   constructor(
     public facadeService: FacadeService,
     public autoresService: AutoresService,
+    public dialog: MatDialog,
     private router: Router
   ){}
 
@@ -92,15 +95,31 @@ export class AutoresScreenComponent implements OnInit {
     this.router.navigate(["registro/cliente/"+idUser]);
   }
 
-  public delete(userId: number){
-
-  }
+  public delete(idAutor: number){
+    //console.log("User:", idUser);
+    const dialogRef = this.dialog.open(EliminarAutorModalComponent,{
+     data: {id: idAutor}, //Se pasan valores a través del componente
+     height: '288px',
+     width: '328px',
+   });
+   //Esta se ejecuta después de un evento que cierra el modal
+   dialogRef.afterClosed().subscribe(result => {
+     if(result.isDelete){
+       console.log("Autor eliminado");
+       //Recargar página
+       alert("Autor eliminado correctamente");
+       window.location.reload();
+     }else{
+       alert("Autor no eliminado ");
+       console.log("No se eliminó el autor");
+     }
+   });
+   }
 }//Fin de la clase
 
 //Esto va fuera de la llave que cierra la clase
 export interface DatosAutor {
   id: number,
-  id_autor: string;
   first_name: string;
   last_name: string;
   nacionalidad: string;

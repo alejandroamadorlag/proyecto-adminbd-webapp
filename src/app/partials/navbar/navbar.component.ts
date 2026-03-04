@@ -50,6 +50,34 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(["registro-libro"]);
   }
 
+  public goRegistroPrestamos(){
+    this.router.navigate(["registro-prestamo"]);
+  }
+
+  public goPrestamos(){
+    this.router.navigate(["prestamos"]);
+  }
+
+  public goHistorialPrestamos(){
+    this.router.navigate(["historial"]);
+  }
+
+  public goLibrosDisponibles(){
+    this.router.navigate(["libros"]);
+  }
+
+  public goLibrosNoDisponibles(){
+    this.router.navigate(["libros-no"]);
+  }
+
+  public goLibrosPopulares(){
+    this.router.navigate(["libros-populares"]);
+  }
+
+  public goClientesActivos(){
+    this.router.navigate(["clientes-activos"]);
+  }
+
 
   //Cerrar sesión
   public logout(){
@@ -80,6 +108,8 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").removeClass("active");
       $("#genero").removeClass("active");
       $("#principal").addClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
     }else if(link == "autores"){
       $("#autor").addClass("active");
       $("#libro").removeClass("active");
@@ -87,6 +117,8 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").removeClass("active");
       $("#principal").removeClass("active");
       $("#genero").removeClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
     }else if(link == "libros"){
       $("#autor").removeClass("active");
       $("#libro").addClass("active");
@@ -94,6 +126,8 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").removeClass("active");
       $("#principal").removeClass("active");
       $("#genero").removeClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
     }else if(link == "cliente"){
       $("#autor").removeClass("active");
       $("#libro").removeClass("active");
@@ -101,6 +135,8 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").removeClass("active");
       $("#principal").removeClass("active");
       $("#genero").removeClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
     }else if(link == "prestamos"){
       $("#autor").removeClass("active");
       $("#libro").removeClass("active");
@@ -108,6 +144,8 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").addClass("active");
       $("#principal").removeClass("active");
       $("#genero").removeClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
     }else if(link == "generos"){
       $("#autor").removeClass("active");
       $("#libro").removeClass("active");
@@ -115,6 +153,26 @@ export class NavbarComponent implements OnInit{
       $("#prestamo").removeClass("active");
       $("#principal").removeClass("active");
       $("#genero").addClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").removeClass("active");
+    }else if(link == "historial-cliente"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").removeClass("active");
+      $("#historial").addClass("active");
+      $("#usuario").removeClass("active");
+    }else if(link == "usuarios"){
+      $("#autor").removeClass("active");
+      $("#libro").removeClass("active");
+      $("#cliente").removeClass("active");
+      $("#prestamo").removeClass("active");
+      $("#principal").removeClass("active");
+      $("#genero").removeClass("active");
+      $("#historial").removeClass("active");
+      $("#usuario").addClass("active");
     }
   }
 }

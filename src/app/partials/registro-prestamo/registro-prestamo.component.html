@@ -1,0 +1,77 @@
+<div class="wrapper">
+  <div class="header-home-admin">
+    <app-navbar></app-navbar>
+
+  <div class="section-registro">
+    <div class="row mt-3 mb-3">
+      <div class="form-group col-12">
+        <label *ngIf="!editar" class="title-user" for="tipo_usuario">Ingresa los datos del Préstamo</label>
+        <label *ngIf="editar" class="title-user" for="tipo_usuario">Actualizar Préstamo</label>
+      </div>
+    </div>
+              <div class="body-registro">
+                <div class="container">
+
+                <mat-form-field class="mat-input" appearance="outline">
+                  <mat-label>Fecha del Préstamo</mat-label>
+                  <input matInput [matDatepicker]="picker" [(ngModel)]="prestamo.fecha_prestamo" (focus)="picker.open()" placeholder="Agrega la fecha en la que se está registrando el préstamo" (dateChange)="changeFecha1($event)" type="string">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="errors.fecha_prestamo" class="invalid-feedback">{{ errors.fecha_prestamo }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                  <mat-label>Fecha de devolución esperada</mat-label>
+                  <input matInput [matDatepicker]="picker2" [(ngModel)]="prestamo.fecha_devol_esperada" (focus)="picker2.open()" placeholder="Agrega la fecha en la que se espera que se devuelva el libro prestado" (dateChange)="changeFecha2($event)" type="string">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="errors.fecha_devol_esperada" class="invalid-feedback">{{ errors.fecha_devol_esperada }}</div>
+
+                <mat-form-field *ngIf="editar" class="mat-input" appearance="outline">
+                  <mat-label>Fecha de devolución real</mat-label>
+                  <input matInput [matDatepicker]="picker3" [(ngModel)]="prestamo.fecha_devol_real" (focus)="picker3.open()" placeholder="Agrega la fecha en la que se devolvió el préstamo" (dateChange)="changeFecha3($event)" type="string">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="errors.fecha_devol_real" class="invalid-feedback">{{ errors.fecha_devol_real }}</div>
+
+                <mat-form-field *ngIf="editar" class="mat-input" appearance="outline">
+                  <mat-label>Libro en cuestión</mat-label>
+                  <input matInput [(ngModel)]="prestamo.id_libro" placeholder="Escribe nombre" [disabled]="editar">
+                </mat-form-field>
+
+                  <mat-form-field *ngIf="!editar" class="mat-input" appearance="outline">
+                    <mat-label>Libro en cuestión</mat-label>
+                    <mat-select [(ngModel)]="prestamo.id_libro" placeholder="Selecciona el libro a prestar" [disabled]="editar">
+                        <mat-option *ngFor="let citaItem of dataSource" [value]="citaItem.id_libro">{{ citaItem.id_libro }} {{ citaItem.titulo }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="errors.id_libro" class="invalid-feedback">{{ errors.id_libro }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                  <mat-label>Cliente en cuestión</mat-label>
+                  <mat-select [(ngModel)]="prestamo.id_cliente" placeholder="Selecciona el cliente a realizar el préstamo y su ID" [disabled]="editar">
+                      <mat-option *ngFor="let citaItem2 of dataSource2" [value]="citaItem2.id">{{ citaItem2.id }} {{ citaItem2.first_name }} {{ citaItem2.last_name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="errors.id_cliente" class="invalid-feedback">{{ errors.id_cliente }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                  <mat-label>Bibliotecario a cargo del préstamo</mat-label>
+                  <mat-select [(ngModel)]="prestamo.id_bibliotecario" placeholder="Selecciona el Bibliotecario encargado del préstamo y su ID" [disabled]="editar">
+                      <mat-option *ngFor="let citaItem3 of dataSource3" [value]="citaItem3.id">{{ citaItem3.id }} {{ citaItem3.first_name }} {{ citaItem3.last_name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="errors.id_bibliotecario" class="invalid-feedback">{{ errors.id_bibliotecario }}</div>
+
+                  <div class="section-buttons">
+                      <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+                      <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                      <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>

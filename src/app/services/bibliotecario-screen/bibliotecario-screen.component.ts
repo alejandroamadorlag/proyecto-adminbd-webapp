@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { FacadeService } from 'src/app/services/facade.service';
 import { BibliotecariosService } from 'src/app/services/bibliotecarios.service';
+import { EliminarBiblioModalComponent } from 'src/app/modals/eliminar-biblio-modal/eliminar-biblio-modal.component';
 
 @Component({
   selector: 'app-bibliotecario-screen',
@@ -18,7 +20,7 @@ export class BibliotecarioScreenComponent implements OnInit {
   public lista_bibliotecarios: any[] = [];
 
   //Para la tabla
-  displayedColumns: string[] = ['id_bibliotecario', 'nombre', 'email', 'telefono', 'rfc', 'direccion', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'rfc', 'direccion', 'editar'];
   dataSource = new MatTableDataSource<DatosBibliotecario>(this.lista_bibliotecarios as DatosBibliotecario[]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,6 +32,7 @@ export class BibliotecarioScreenComponent implements OnInit {
   constructor(
     public facadeService: FacadeService,
     public bibliotecariosService: BibliotecariosService,
+    public dialog: MatDialog,
     private router: Router
   ){}
 
@@ -100,15 +103,32 @@ export class BibliotecarioScreenComponent implements OnInit {
     this.router.navigate(["registro/cliente/"+idUser]);
   }
 
-  public delete(userId: number){
 
-  }
+  public delete(idBiblio: number){
+    //console.log("User:", idUser);
+    const dialogRef = this.dialog.open(EliminarBiblioModalComponent,{
+     data: {id: idBiblio}, //Se pasan valores a través del componente
+     height: '288px',
+     width: '328px',
+   });
+   //Esta se ejecuta después de un evento que cierra el modal
+   dialogRef.afterClosed().subscribe(result => {
+     if(result.isDelete){
+       console.log("Bibliotecario eliminado");
+       //Recargar página
+       alert("Bibliotecario eliminado correctamente");
+       window.location.reload();
+     }else{
+       alert("Bibliotecario no eliminado ");
+       console.log("No se eliminó el bibliotecario");
+     }
+   });
+   }
 }//Fin de la clase
 
 //Esto va fuera de la llave que cierra la clase
 export interface DatosBibliotecario {
   id: number,
-  id_bibliotecario: string;
   first_name: string;
   last_name: string;
   email: string;

@@ -11,19 +11,46 @@
               <a class="nav-link active" id="principal" aria-current="page" (click)="clickNavLink('home')">Inicio</a>
             </li>
             <li class="nav-item" *ngIf="rol!='cliente'">
+              <a class="nav-link" id="usuario" aria-current="page" (click)="clickNavLink('usuarios')">Usuarios</a>
+            </li>
+            <li class="nav-item" *ngIf="rol!='cliente'">
               <a class="nav-link" id="autor" aria-current="page" (click)="clickNavLink('autores')">Autores</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" id="libro" aria-current="page" (click)="clickNavLink('libros')">Libros</a>
+            <li class="nav-item" *ngIf="rol!='bibliotecario'">
+              <a class="nav-link" id="historial" aria-current="page" (click)="clickNavLink('historial-cliente')">Historial</a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="rol!='cliente'">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Libros
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" (click)="goLibrosDisponibles()">Disponibles</a></li>
+                <li><a class="dropdown-item" (click)="goLibrosNoDisponibles()">No disponibles</a></li>
+              </ul>
             </li>
             <li class="nav-item" *ngIf="rol!='cliente'">
               <a class="nav-link" id="cliente" aria-current="page" (click)="clickNavLink('cliente')">Clientes</a>
             </li>
-            <li class="nav-item" *ngIf="rol!='cliente'">
-              <a class="nav-link" id="prestamo" aria-current="page" (click)="clickNavLink('prestamos')">Préstamos</a>
+            <li class="nav-item dropdown" *ngIf="rol!='cliente'">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Préstamos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" (click)="goPrestamos()">Activos</a></li>
+                <li><a class="dropdown-item" (click)="goHistorialPrestamos()">Historial</a></li>
+              </ul>
             </li>
             <li class="nav-item" *ngIf="rol!='cliente'">
               <a class="nav-link" id="genero" aria-current="page" (click)="clickNavLink('generos')">Géneros</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Actividad
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" (click)="goLibrosPopulares()">Libros más prestados</a></li>
+                <li><a class="dropdown-item" (click)="goClientesActivos()">Clientes más activos</a></li>
+              </ul>
             </li>
             <li class="nav-item dropdown" *ngIf="rol!='cliente'">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,7 +63,7 @@
                 <li><a class="dropdown-item" (click)="goRegistroLibro()">Libros</a></li>
                 <li><a class="dropdown-item" (click)="goRegistroGenero()">Géneros</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Préstamos</a></li>
+                <li><a class="dropdown-item" (click)="goRegistroPrestamos()">Préstamos</a></li>
               </ul>
             </li>
           </ng-container>

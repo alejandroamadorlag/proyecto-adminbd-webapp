@@ -24,7 +24,6 @@ export class LibrosService {
 
   public esquemaLibro(){
     return {
-      'id_libro': '',
       'titulo': '',
       'id_autor': '',
       'id_genero': '',
@@ -37,10 +36,6 @@ export class LibrosService {
     console.log("Validando autor... ", data);
 
     let error: any = [];
-
-    if(!this.validatorService.required(data["id_libro"])){
-      error["id_libro"] = this.errorService.required;
-    }
 
     if(!this.validatorService.required(data["titulo"])){
       error["titulo"] = this.errorService.required;
@@ -74,6 +69,21 @@ export class LibrosService {
     return this.http.get<any>(`${environment.url_api}/lista-libros/`, {headers:headers});
   }
 
+  public obtenerListaLibrosPopulares (): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-librospo/`, {headers:headers});
+  }
+
+  public obtenerListaLibrosNoDisponibles (): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-librosno/`, {headers:headers});
+  }
+
+  public eliminarLibro (idLibro: any): Observable <any>{
+    return this.http.put<any>(`${environment.url_api}/delete-libro/?id_libro=${idLibro}`, httpOptions);
+  }
 
 
 }

@@ -24,7 +24,6 @@ export class GenerosService {
 
   public esquemaAutor(){
     return {
-      'id_genero': '',
       'nombre_genero': '',
     }
   }
@@ -35,9 +34,6 @@ export class GenerosService {
 
     let error: any = [];
 
-    if(!this.validatorService.required(data["id_genero"])){
-      error["id_genero"] = this.errorService.required;
-    }
 
     if(!this.validatorService.required(data["nombre_genero"])){
       error["nombre_genero"] = this.errorService.required;
@@ -57,6 +53,10 @@ export class GenerosService {
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-generos/`, {headers:headers});
+  }
+
+  public eliminarGenero (idGenero: any): Observable <any>{
+    return this.http.put<any>(`${environment.url_api}/delete-genero/?id=${idGenero}`, httpOptions);
   }
 
 

@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { EliminarGeneroModalComponent } from 'src/app/modals/eliminar-genero-modal/eliminar-genero-modal.component';
 import { FacadeService } from 'src/app/services/facade.service';
 import { GenerosService } from 'src/app/services/generos.service';
 
@@ -16,9 +18,10 @@ export class GenerosScreenComponent implements OnInit {
   public rol:string = "";
   public token : string = "";
   public lista_generos: any[] = [];
+  public genero:any = {};
 
   //Para la tabla
-  displayedColumns: string[] = ['id_genero', 'nombre_genero', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'nombre_genero', 'editar', 'eliminar'];
   dataSource = new MatTableDataSource<DatosGenero>(this.lista_generos as DatosGenero[]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,6 +33,7 @@ export class GenerosScreenComponent implements OnInit {
   constructor(
     public facadeService: FacadeService,
     public generosService: GenerosService,
+    public dialog: MatDialog,
     private router: Router
   ){}
 
@@ -92,15 +96,33 @@ export class GenerosScreenComponent implements OnInit {
     this.router.navigate(["registro/cliente/"+idUser]);
   }
 
-  public delete(userId: number){
-
+  public delete(idGenero: number){
+   //console.log("User:", idUser);
+   const dialogRef = this.dialog.open(EliminarGeneroModalComponent,{
+    data: {id: idGenero}, //Se pasan valores a través del componente
+    height: '288px',
+    width: '328px',
+  });
+  //Esta se ejecuta después de un evento que cierra el modal
+  dialogRef.afterClosed().subscribe(result => {
+    if(result.isDelete){
+      console.log("Genero eliminado");
+      //Recargar página
+      alert("Genero eliminado correctamente");
+      window.location.reload();
+    }else{
+      alert("Genero no eliminado ");
+      console.log("No se eliminó el genero");
+    }
+  });
   }
+
+
 }//Fin de la clase
 
 //Esto va fuera de la llave que cierra la clase
 export interface DatosGenero {
   id: number,
-  id_genero: string;
   nombre_genero: string;
   is_active: number;
 }

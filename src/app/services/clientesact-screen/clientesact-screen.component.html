@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <div class="header-home-admin">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="body-alumnos">
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <span class="title-perfil">Bienvenido {{name_user}}</span>
+        <br><br>
+        <span class="title-perfil">{{rol}}</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-3 mb-5" style="text-align: center;">
+        <div class="col-12">
+          <div class="alert alert-primary" role="alert">
+            <span class="title-table">Lista de Clientes Más Activos</span>
+          </div>
+        </div>
+      </div>
+      <!-- Tabla de angular material -->
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+            <!-- 1era fila -->
+
+            <!-- 2da fila -->
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}} </td>
+            </ng-container>
+
+            <!-- 3era fila -->
+            <ng-container matColumnDef="prestamos_solicitados">
+                <th mat-header-cell *matHeaderCellDef> Préstamos Solicitados </th>
+                <td mat-cell *matCellDef="let element"> {{element.prestamos_solicitados}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                       showFirstLastButtons
+                       aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
